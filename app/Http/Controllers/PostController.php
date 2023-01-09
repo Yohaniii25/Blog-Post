@@ -16,6 +16,7 @@ class PostController extends Controller
             'description' => 'required'
         ]);
 
+         //When someone remove the required part from the inpect, using this it can be handled not to create a post in db
         if ($validator->fails()) {
             return Back()->with('status', 'Something Wrong');
         } else {
