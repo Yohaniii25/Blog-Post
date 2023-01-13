@@ -19,7 +19,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next)
     {
         // if(Auth::user()->IsAdmin ()== ADMIN) {
-        if (auth()->user()->IsAdmin ()== ADMIN) {
+        if (auth()->user()->IsAdmin ()) {
             //redirect to admin page
             return $next($request);
         } else {
