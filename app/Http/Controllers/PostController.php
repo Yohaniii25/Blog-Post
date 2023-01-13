@@ -13,17 +13,21 @@ class PostController extends Controller
 
         $validator = Validator::make($request->all(), [
             'title' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'thumbnail' => 'required|image'
         ]);
 
          //When someone remove the required part from the inpect, using this it can be handled not to create a post in db
         if ($validator->fails()) {
             return Back()->with('status', 'Something Wrong');
         } else {
+            $imageName = time() . "." . $request->thumbnail->extension();
+            $request->thumbnail->move(public_path('thumbnails'), $imageName);
             Post::create([
                 'user_id' => auth()->user()->id,
                 'title' => $request->title,
-                'description' => $request->description
+                'description' => $request->description,
+                'thumbnail' => $imageName
             ]);
         }
 
