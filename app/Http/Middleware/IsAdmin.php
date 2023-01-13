@@ -19,11 +19,23 @@ class IsAdmin
     public function handle(Request $request, Closure $next)
     {
         // if(Auth::user()->IsAdmin ()== ADMIN) {
-        if (auth()->user()->IsAdmin ()) {
-            //redirect to admin page
-            return $next($request);
+        // if (auth()->user()->IsAdmin ()) {
+        //     //redirect to admin page
+        //     return $next($request);
+        // } else {
+        //     //redirect to user page
+        //     return back();
+        // }
+
+        //check weather user log or not
+        if (auth()->user()) {
+            if (auth()->user()->IsAdmin() == ADMIN) {
+                //redirect to admin page
+                return $next($request);
+            } else {
+                return back();
+            }
         } else {
-            //redirect to user page
             return back();
         }
     }
